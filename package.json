@@ -1,0 +1,20 @@
+{
+  "name": "playwright-demo",
+  "version": "1.0.0",
+  "description": "Playwright E2E test automation demo — TypeScript, Page Object Model, fixtures, storageState auth, flaky-test patterns, GitHub Actions CI",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:flaky-hunt": "playwright test flaky-demo --repeat-each=10",
+    "typecheck": "tsc --noEmit",
+    "report": "playwright show-report"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.3",
+    "typescript": "^6.0.3"
+  }
+}
