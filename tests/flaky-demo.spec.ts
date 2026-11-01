@@ -6,7 +6,7 @@ import { test, expect } from './fixtures';
  *
  * The wrong variant is marked test.fixme() so CI stays green. To see it flake:
  *   1. change test.fixme(...) to test(...)
- *   2. npm run test:flaky-hunt        (runs this file 10x)
+ *   2. npm run test:flaky-hunt -- --trace=retain-on-failure   (runs this file 10x)
  *   3. open a failure's trace:        npx playwright show-trace test-results/<run>/trace.zip
  *
  * Why the wrong one flakes: a fixed sleep races the UI update — on a fast run
