@@ -8,6 +8,7 @@ export class InventoryPage {
   readonly items: Locator;
   readonly itemPriceLabels: Locator;
   readonly cartBadge: Locator;
+  readonly cartLink: Locator;
   readonly sortSelect: Locator;
 
   constructor(private readonly page: Page) {
@@ -15,6 +16,7 @@ export class InventoryPage {
     this.items = page.locator('[data-test="inventory-item"]');
     this.itemPriceLabels = page.locator('[data-test="inventory-item-price"]');
     this.cartBadge = page.locator('[data-test="shopping-cart-badge"]');
+    this.cartLink = page.locator('[data-test="shopping-cart-link"]');
     this.sortSelect = page.locator('[data-test="product-sort-container"]');
   }
 
@@ -28,6 +30,10 @@ export class InventoryPage {
     await card.getByRole('button', { name: 'Add to cart' }).click();
   }
 
+  async openCart() {
+    await this.cartLink.click();
+  }
+
   async sortBy(option: SortOption) {
     await this.sortSelect.selectOption(option);
   }
@@ -35,5 +41,14 @@ export class InventoryPage {
   async prices(): Promise<number[]> {
     const texts = await this.itemPriceLabels.allTextContents();
     return texts.map((t) => parseFloat(t.replace('$', '')));
+  }
+
+  /** Price of one product card in integer cents ("$29.99" -> 2999). */
+  async priceInCents(productName: string): Promise<number> {
+    const text = await this.items
+      .filter({ hasText: productName })
+      .locator('[data-test="inventory-item-price"]')
+      .innerText();
+    return Math.round(parseFloat(text.replace('$', '')) * 100);
   }
 }
