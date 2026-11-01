@@ -19,6 +19,13 @@ test.describe('Inventory', () => {
     expect(prices).toEqual([...prices].sort((a, b) => a - b));
   });
 
+  test('sorting by price high→low orders prices descending', async ({ inventoryPage }) => {
+    await inventoryPage.sortBy('hilo');
+
+    const prices = await inventoryPage.prices();
+    expect(prices).toEqual([...prices].sort((a, b) => b - a));
+  });
+
   test('adding two items updates the cart badge', async ({ inventoryPage }) => {
     await inventoryPage.addToCart('Sauce Labs Backpack');
     await inventoryPage.addToCart('Sauce Labs Bike Light');
