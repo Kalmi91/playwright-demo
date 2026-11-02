@@ -9,6 +9,9 @@ on:
     # Weekly run (Mondays 05:23 UTC) catches drift in the target site or in dependencies.
     - cron: '23 5 * * 1'
 
+permissions:
+  contents: read
+
 jobs:
   test:
     timeout-minutes: 20
